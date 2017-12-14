@@ -111,7 +111,7 @@ function GenerateGraph(year)
 		})
 		.attr("r", function(d) {
 			var count =parseInt(d.StudentsCount.replace(/,/g, ''), 15);
-			return Math.sqrt(count) *0.01;
+			return Math.sqrt(count) *0.05;
 		})
 		.style("fill","#377eb8")	
 		
