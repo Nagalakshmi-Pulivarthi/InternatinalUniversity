@@ -293,6 +293,11 @@ margin: 1px;
     border: 1px solid black;
 }
 
+#graphs{
+
+ background-color: #eef0f1;
+}
+
 .chart::before {
   position: absolute;
   top: 50px;
@@ -302,7 +307,7 @@ margin: 1px;
   width: 400px;
   height: 300px;
   content: " ";
-  /* background-image: url("maxresdefault.jpg"); */
+   background-image: url("maxresdefault.jpg"); 
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
@@ -328,4 +333,14 @@ margin: 1px;
   font-weight: bold;
   fill: gray;
   text-anchor: middle;
+}
+
+#heatmap{
+
+  padding: 2px;
+  border: 1px black solid;
+}
+
+#data{
+  padding: 10px;
 }
