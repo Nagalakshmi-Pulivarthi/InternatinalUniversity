@@ -91,15 +91,15 @@ def origin():
     Base.prepare(engine, reflect=True)
     session = Session(engine)
 
-    origin = Base.classes.origin
+    conn = engine.connect()
 
-    originResult = session.query(origin.Origin, origin.studentcount, origin.year).all()
+    query = "select origin, studentcount, year from origin where origin in "
+    query += "(select origin from origin where year = 2016 order by studentcount desc limit 11) "
+    query += "order by studentcount desc"
+    df = pd.read_sql_query(query, conn)
 
-    e = defaultdict(list)
-    for element in originResult:
-        e["origins"].append({'origin': str(element[0]), 'studentcount': element[1], 'year': element[2]})
-
-    return jsonify(e)
+    origin=df.to_dict(orient='records')
+    return jsonify(origin)
 
 
 @app.route("/univCounty")
@@ -110,13 +110,70 @@ def univCounty():
     Base.prepare(engine, reflect=True)
     session = Session(engine)
 
-    univ = Base.classes.university_county
+    conn = engine.connect()
 
-    univResult = session.query(univ.PlaceofDestination, univ.City, univ.State, univ.Students, univ.Year, univ.County).all()
+    query = "select * from (select PlaceofDestination, Students, Year, County from university_county where year = 2016 order by Students desc limit 15) "
+    query += "UNION "
+    query += "select * from (select PlaceofDestination, Students, Year, County from university_county where year = 2013 order by Students desc limit 15) "
+    query += "UNION "
+    query += "select * from (select PlaceofDestination, Students, Year, County from university_county where year = 2010 order by Students desc limit 15) "
+    query += "UNION "
+    query += "select * from (select PlaceofDestination, Students, Year, County from university_county where year = 2008 order by Students desc limit 15) "
+    query += "UNION "
+    query += "select * from (select PlaceofDestination, Students, Year, County from university_county where year = 2005 order by Students desc limit 15) "
+    query += "UNION "
+    query += "select * from (select PlaceofDestination, Students, Year, County from university_county where year = 2000 order by Students desc limit 15) "
+
+    df = pd.read_sql_query(query, conn)
+
+    univResults=df.to_dict(orient='records')
+    return jsonify(univResults)
+
+
+@app.route("/univRanking")
+#publish university world rankings
+def univRanking():
+    engine = create_engine("sqlite:///iie.sqlite", echo=False)
+    Base = automap_base()
+    Base.prepare(engine, reflect=True)
+    session = Session(engine)
+
+    conn = engine.connect()
+
+    query = "select world_rank, university_name, country, international_students, year from Global_University_Rankings "
+    query += "where world_rank <= 12 order by university_name"
+    df = pd.read_sql_query(query, conn)
+
+    ranking=df.to_dict(orient='records')
+    return jsonify(ranking)
+
+#     rank = Base.classes.Global_University_Rankings
+
+#     rankResult = session.query(rank.world_rank, rank.university_name, rank.country, rank.international_students,
+# rank.year).all()
+
+#     # print(rankResult)
+#     e = defaultdict(list)
+#     for element in rankResult:
+#         e["rankings"].append({'world rank': str(element[0]), 'university': str(element[1]), 'country': element[2], '% international students': element[3], 'year': element[4]})
+#     return jsonify(e)
+
+
+@app.route("/k12Scores")
+#publish university world rankings
+def k12Scores():
+    engine = create_engine("sqlite:///iie.sqlite", echo=False)
+    Base = automap_base()
+    Base.prepare(engine, reflect=True)
+    session = Session(engine)
+
+    k12 = Base.classes.PISA_Global_K12_Scores
+
+    k12Result = session.query(k12.country, k12.subject, k12.sex, k12.year,k12.value).all()
 
     e = defaultdict(list)
-    for element in univResult:
-        e["universities"].append({'university': str(element[0]), 'city': element[1], 'state': element[2], 'students': element[3], 'year': element[4], 'county':element[5]})
+    for element in k12Result:
+        e["k12Scores"].append({'country': str(element[0]), 'subject': str(element[1]), 'sex': element[2], 'year': element[3], 'value': element[4]})
     return jsonify(e)
 
 @app.route("/university-students/<year>")   

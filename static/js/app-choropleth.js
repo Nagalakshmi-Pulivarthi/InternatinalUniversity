@@ -41,13 +41,15 @@ function GenerateGraph(year)
 	var svg = d3.select("#chart")
 				.append("svg")
 				.attr("width", width)
-				.attr("height", height);
-			
+				.attr("height", height)
+				
+			    
 	// Append Div for tooltip to SVG
 	var div = d3.select("body")
 				.append("div")   
 				.attr("class", "tooltip")               
-				.style("opacity", 0);
+				.style("opacity", 0)
+				
 
 	// Load in my states data!
 	var sample_url="/state-universities/"+year;

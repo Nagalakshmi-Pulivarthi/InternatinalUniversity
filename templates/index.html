@@ -22,11 +22,11 @@
   <!-- Custom CSS -->
   
 
-  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
   
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-  <script src="../static/js/dimple.v2.3.0.min.js"></script>
+  <script src="https://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
   <!-- Bootstrap core JavaScript -->
   <script src="../static/vendor/jquery/jquery.min.js"></script>
   <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -109,15 +109,61 @@
       
 
 <!-- all the reports goes in below section -->
+<div class="container-flow">
+  <div class="row">
+    <div class="col-md-12" align="center">
+        <h3 class="mb-5">Trends in Minority Composition By County</h3>
+        <select id="selCounty" onchange="changeCounty(this.value)">
+          <option value="Los Angeles County, California">Los Angeles County, California</option>
+          <option value="Santa Clara County, California">Santa Clara County California</option>
+          <option value="Orange County, California">Orange County, California</option>
+          <option value="Alameda County, California">Alameda County, California</option>
+          <option value="Harris County, Texas">Harris County, Texas</option>
+          <option value="Cook County, Illinois">Cook County, Illinois</option>
+          <option value="Middlesex County, Massachusetts">Middlesex County, Massachusetts</option>
+          <option value="Miami-Dade County, Florida">Miami-Dade County, Florida</option>
+          <option value="King County, Washington">King County, Washington</option>
+          <option value="New York County, New York">New York County, New York</option>
+        </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6" align="center">
+        <div class="totalpop"></div>
+    </div>
+    <div class="col-md-6">
+        <div class="totalPercentage" align="center"></div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6" align="center">
+          <div class="over150Percentage" align="center"></div>
+      </div>
+      <div class="col-md-6">
+          <div class="over200Percentage" align="center"></div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6" align="center">
+          <div class="originChart" align="center"></div>
+      </div>
+      <div class="col-md-6" align="center">
+          <!-- <h4 class="mb-5">US University Destinations by county/city</h4> -->
+          <div class="universityCounty" align="center"></div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6" align="center">
+          <div class="universityRanking" align="center"></div>
+      </div>
+      <div class="col-md-6" align="center">
+          <!-- <h4 class="mb-5">US University Destinations by county/city</h4> -->
+          <div class="K12Scores" align="center"></div>
+      </div>
+  </div>
+  
+</div>
 
-    <div class="totalpopulation"></div>
-    <div class="totalpop"></div>
-    <div class="totalPercentage"></div>
-    <div class="over150Percentage"></div>
-    <div class="over200Percentage"></div>
-    <div class="originChart"></div>
-    <div class="universityCounty"></div>
-    
 <div class="container">
       <div class="heatmap">
 
