@@ -141,7 +141,7 @@ function GenerateGraph(year)
 	// Map the studenst  in universities!
 	var sample1_url="/university-students/"+year;
 	d3.json(sample1_url, function(data) {
-    //svg.selectall
+
 	svg.selectAll("circle")
 		.data(data)
 		.enter()
